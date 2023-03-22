@@ -3,7 +3,9 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        echo 'build stage'
+        echo 'Dépuis de l\'éatpe build'
+        bat 'mvnw -DskipTests clean install'
+        echo 'Fin de build'
       }
     }
 
