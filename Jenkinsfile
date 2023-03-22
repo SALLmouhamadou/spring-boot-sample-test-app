@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        echo 'D�puis de l\'�atpe build'
+        echo 'Dépuis de l\'éatpe build'
         bat 'mvnw -DskipTests clean install'
         echo 'Fin de build'
       }
@@ -11,9 +11,11 @@ pipeline {
 
     stage('test') {
       parallel {
-        stage('test intégration') {
+        stage('test intÃ©gration') {
           steps {
-            echo 'test d\'intégration'
+            echo 'debut test integration'
+            bat 'mvnw -Dtest=com.example.testingweb.integration.** test'
+            echo 'fin test integration'
           }
         }
 
