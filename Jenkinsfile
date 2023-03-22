@@ -3,27 +3,35 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        echo 'build stage'
+        echo 'Dépuis de l\'éatpe build'
+        bat 'mvnw -DskipTests clean install'
+        echo 'Fin de build'
       }
     }
 
     stage('test') {
       parallel {
-        stage('test intégration') {
+        stage('test intÃ©gration') {
           steps {
-            echo 'test d\'intégration'
+            echo 'debut test integration'
+            bat 'mvnw -Dtest=com.example.testingweb.integration.** test'
+            echo 'fin test integration'
           }
         }
 
         stage('test fonctionnel') {
           steps {
             echo 'test fonctionnel'
+            bat 'mvnw -Dtest=com.example.testingweb.functional.** test'
+            echo 'fin de test funtional'
           }
         }
 
         stage('smoke test') {
           steps {
-            echo 'smoke test'
+            echo 'debut smoke test'
+            bat 'mvnw -Dtest=com.example.testingweb.functional.** test'
+            echo 'fin test smoke'
           }
         }
 
@@ -33,6 +41,8 @@ pipeline {
     stage('deploy') {
       steps {
         echo 'stage deploy'
+        bat 'java -jar target/testing-web-complete.jar'
+        echo 'fin stage deploy'
       }
     }
 
